@@ -29,26 +29,98 @@ int performance(int* schedule, int size) {
   return count;
 }
 
-int place_available(struct Problem p) {
-  int times[6];
+void place_available(struct Problem p, int* full) {
+  int times[7] = {0,0,0,0,0,0,0};
   int* w_it = p.weights;
   for (int* it=p.schedule; it!=p.schedule+p.size; ++it) {
-    times[*it] += *(w_it++);
+    times[*it-1] += *(w_it++);
   }
 
+  int* t_it = times;
   int* a_it = p.unavailabilities;
-  for (int* it=times; it!=times+6; ++it) {
-    if (*it > *(a_it++)) {
-      return 1;
+  for (int* it=full; it!=full+3; ++it) {
+    if (*(t_it++)>=*(a_it++)) {
+      *it = 1;
     }
   }
-  return 0;
 }
 
+/* 
+ * Positionnement des taches par ordre croissant des di
+ * TODO: vérifier que la tache peut passer
+ * TODO: vérifier qu'une tache n'est pas en retard sinon la mettre en 7
+ */
 void heuristique1(struct Problem p) {
   int* sch_it = p.schedule;
-  int i=0;
-  for (int* it=p.weights; it!=p.weights+p.size; ++it) {
-    *(sch_it++) = 7;
+  int i=1;
+  while (i<=p.size) {
+    int full[3] = {0,0,0};
+    place_available(p, )cfull);
+    if (!full[0]) {
+      *(sch_it++) = 1;
+      i++;
+    }
+    if (!full[1]) {
+      *(sch_it++) = 2;
+      i++;
+    }
+    if (!full[2]) {
+      *(sch_it++) = 3;
+      i++;
+    }
+    if ((full[0] && full[1]) && full[2]) {
+      *(sch_it++) = 7;
+      i++;
+    }
   }
+}
+
+void display_solution(struct Problem p) {
+  printf("Schedule: ");
+  print_array(p.schedule, p.size);
+  printf("\n\n\tM1: ");
+  for (int i=0; i<p.size; ++i) {
+    if (p.schedule[i] == 1) {
+      printf("%d ", i+1);
+    }
+  }
+  printf("|||");
+  for (int i=0; i<p.size; ++i) {
+    if (p.schedule[i] == 4) {
+      printf("%d ", i+1);
+    }
+  }
+  printf("\n\tM2: ");
+  for (int i=0; i<p.size; ++i) {
+    if (p.schedule[i] == 2) {
+      printf("%d ", i+1);
+    }
+  }
+  printf("|||");
+  for (int i=0; i<p.size; ++i) {
+    if (p.schedule[i] == 5) {
+      printf("%d ", i+1);
+    }
+  }
+  printf("\n\tM3: ");
+  for (int i=0; i<p.size; ++i) {
+    if (p.schedule[i] == 3) {
+      printf("%d ", i+1);
+    }
+  }
+  printf("|||");
+  for (int i=0; i<p.size; ++i) {
+    if (p.schedule[i] == 6) {
+      printf("%d ", i+1);
+    }
+  }
+  printf("\n\n");
+  printf("Non ordonnancé: ");
+  for (int i=0; i<p.size; ++i) {
+    if (p.schedule[i] == 7) {
+      printf("%d ", i+1);
+    }
+  }
+  printf("\n");
+  printf(" -> performance: %d\n", performance(p.schedule, p.size));
 }
