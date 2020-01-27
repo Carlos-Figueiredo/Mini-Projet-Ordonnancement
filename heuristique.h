@@ -92,6 +92,10 @@ void heuristique1(struct Problem p) {
   }
 }
 
+
+/* placer les tâches à t le plus petit
+sur les machines possibles
+telles que la tâche est finie à temps*/
 void heuristique2(struct Problem p) {
   int i=1;
   int* sch_it = p.schedule;
@@ -99,31 +103,38 @@ void heuristique2(struct Problem p) {
   while (i <= p.size) {
     //temps max sur chaque machine
     int times[7] = {0,0,0,0,0,0,0};
+    int times_new[7] = {0,0,0,0,0,0,0};
     t_max(p, times);
 
     //temps max sur chaque machine après insertion de la tâche
-    int times_new[7] = times;
+    t_max(p, times_new);
     for (int i=1; i<=7; i++) {
       times_new[i] += *wi;
     }
 
     //itérer sur les machines pour trouver les candidates et celle choisie
-    int* di = p.unavailabilities;
-    int tmax = times_new[1];
+    int* di = p.dates;
+    int* ui = p.unavailabilities;
+    int t = 0;
+    int m = 7;
     for (int i=1; i<=3; i++) {
-      if (times_new[i] <= di) {
-        if () {
-
+      if ((times_new[i] <= *di) && (times_new[i] <= *ui) && (times[i] > t)) {
+        t = times[i];
+        m = i;
         }
-      }
       di++;
+      ui++;
     }
     for (int i=4; i<=6; i++) {
-      
+      if (times[i] > t) {
+        t = times[i];
+        m = i;
+      }
+      di++;
+      ui++;
     }
-
-
     wi++;
+    *sch_it = m;
   }
 }
 
@@ -132,7 +143,11 @@ void t_max(struct Problem p, int* times) {
   for (int* it=p.schedule; it!=p.schedule+p.size; ++it) {
     times[*it-1] += *(w_it++);
   }
-  //for (int* it=p.starts)
+  int* pi = p.starts;
+  for (int i=0; i<7; i++) {
+    times[i] += *pi;
+    pi++;
+  }
 }
 
 void display_solution(struct Problem p) {
