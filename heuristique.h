@@ -52,7 +52,7 @@ int select_machine(Problem p, int curr_it) {
   int maxi = p.weights[curr_it];
   for (int i=0; i!=3; ++i) {
     int time_left = p.unavailabilities[i] - p.curr_time[i];
-    if (time_left>=maxi) {
+    if (time_left>=maxi && p.curr_time[i] + p.weights[curr_it] <= p.dates[curr_it]) {
       maxi = time_left;
       index = i+1;
     }
