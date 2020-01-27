@@ -7,6 +7,7 @@ int main(int argc, char** argv) {
   int weights[SIZE] = {1, 2, 3, 2, 3};
   int dates[SIZE]   = {2, 3, 4, 4, 5};
   int unavailabilities[3] = {4, 3, 5};
+  int starts[6] = {0, 0, 0, 5, 5, 6};
   int schedule[SIZE] = {7,7,7,7,7};
 
   struct Problem p;
@@ -14,6 +15,7 @@ int main(int argc, char** argv) {
   p.dates = dates;
   p.schedule = schedule;
   p.unavailabilities = unavailabilities;
+  p.starts = starts;
   p.size = SIZE;
 
   heuristique1(p);
