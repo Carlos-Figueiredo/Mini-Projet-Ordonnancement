@@ -1,0 +1,172 @@
+<?xml version = "1.0" encoding="UTF-8" standalone="yes"?>
+<CPLEXSolution version="1.2">
+ <header
+   problemName="problem.lp"
+   solutionName="incumbent"
+   solutionIndex="-1"
+   objectiveValue="6"
+   solutionTypeValue="3"
+   solutionTypeString="primal"
+   solutionStatusValue="101"
+   solutionStatusString="integer optimal solution"
+   solutionMethodString="mip"
+   primalFeasible="1"
+   dualFeasible="1"
+   MIPNodes="0"
+   MIPIterations="18"
+   writeLevel="1"/>
+ <quality
+   epInt="1.0000000000000001e-05"
+   epRHS="9.9999999999999995e-07"
+   maxIntInfeas="0"
+   maxPrimalInfeas="0"
+   maxX="1"
+   maxSlack="105"/>
+ <linearConstraints>
+  <constraint name="c1" index="0" slack="0"/>
+  <constraint name="c2" index="1" slack="0"/>
+  <constraint name="c3" index="2" slack="0"/>
+  <constraint name="c4" index="3" slack="0"/>
+  <constraint name="c5" index="4" slack="0"/>
+  <constraint name="c6" index="5" slack="0"/>
+  <constraint name="c7" index="6" slack="0"/>
+  <constraint name="c8" index="7" slack="0"/>
+  <constraint name="c9" index="8" slack="0"/>
+  <constraint name="c10" index="9" slack="0"/>
+  <constraint name="c11" index="10" slack="7"/>
+  <constraint name="c12" index="11" slack="7"/>
+  <constraint name="c13" index="12" slack="6"/>
+  <constraint name="c14" index="13" slack="2"/>
+  <constraint name="c15" index="14" slack="0"/>
+  <constraint name="c16" index="15" slack="99"/>
+  <constraint name="c17" index="16" slack="98"/>
+  <constraint name="c18" index="17" slack="97"/>
+  <constraint name="c19" index="18" slack="96"/>
+  <constraint name="c20" index="19" slack="95"/>
+  <constraint name="c21" index="20" slack="94"/>
+  <constraint name="c22" index="21" slack="93"/>
+  <constraint name="c23" index="22" slack="92"/>
+  <constraint name="c24" index="23" slack="103"/>
+  <constraint name="c25" index="24" slack="104"/>
+  <constraint name="c26" index="25" slack="2"/>
+  <constraint name="c27" index="26" slack="102"/>
+  <constraint name="c28" index="27" slack="102"/>
+  <constraint name="c29" index="28" slack="102"/>
+  <constraint name="c30" index="29" slack="102"/>
+  <constraint name="c31" index="30" slack="102"/>
+  <constraint name="c32" index="31" slack="102"/>
+  <constraint name="c33" index="32" slack="102"/>
+  <constraint name="c34" index="33" slack="103"/>
+  <constraint name="c35" index="34" slack="104"/>
+  <constraint name="c36" index="35" slack="105"/>
+  <constraint name="c37" index="36" slack="2"/>
+  <constraint name="c38" index="37" slack="102"/>
+  <constraint name="c39" index="38" slack="102"/>
+  <constraint name="c40" index="39" slack="102"/>
+  <constraint name="c41" index="40" slack="102"/>
+  <constraint name="c42" index="41" slack="102"/>
+  <constraint name="c43" index="42" slack="102"/>
+  <constraint name="c44" index="43" slack="91"/>
+  <constraint name="c45" index="44" slack="92"/>
+  <constraint name="c46" index="45" slack="93"/>
+  <constraint name="c47" index="46" slack="94"/>
+  <constraint name="c48" index="47" slack="95"/>
+  <constraint name="c49" index="48" slack="96"/>
+  <constraint name="c50" index="49" slack="97"/>
+  <constraint name="c51" index="50" slack="98"/>
+  <constraint name="c52" index="51" slack="99"/>
+  <constraint name="c53" index="52" slack="100"/>
+  <constraint name="c54" index="53" slack="91"/>
+  <constraint name="c55" index="54" slack="92"/>
+  <constraint name="c56" index="55" slack="93"/>
+  <constraint name="c57" index="56" slack="94"/>
+  <constraint name="c58" index="57" slack="95"/>
+  <constraint name="c59" index="58" slack="96"/>
+  <constraint name="c60" index="59" slack="97"/>
+  <constraint name="c61" index="60" slack="98"/>
+  <constraint name="c62" index="61" slack="99"/>
+  <constraint name="c63" index="62" slack="100"/>
+  <constraint name="c64" index="63" slack="91"/>
+  <constraint name="c65" index="64" slack="92"/>
+  <constraint name="c66" index="65" slack="93"/>
+  <constraint name="c67" index="66" slack="94"/>
+  <constraint name="c68" index="67" slack="95"/>
+  <constraint name="c69" index="68" slack="96"/>
+  <constraint name="c70" index="69" slack="97"/>
+  <constraint name="c71" index="70" slack="98"/>
+  <constraint name="c72" index="71" slack="99"/>
+  <constraint name="c73" index="72" slack="100"/>
+ </linearConstraints>
+ <variables>
+  <variable name="x_0_7" index="0" value="0"/>
+  <variable name="x_1_7" index="1" value="0"/>
+  <variable name="x_2_7" index="2" value="0"/>
+  <variable name="x_3_7" index="3" value="0"/>
+  <variable name="x_4_7" index="4" value="1"/>
+  <variable name="x_5_7" index="5" value="1"/>
+  <variable name="x_6_7" index="6" value="1"/>
+  <variable name="x_7_7" index="7" value="1"/>
+  <variable name="x_8_7" index="8" value="1"/>
+  <variable name="x_9_7" index="9" value="1"/>
+  <variable name="x_0_1" index="10" value="1"/>
+  <variable name="x_0_2" index="11" value="0"/>
+  <variable name="x_0_3" index="12" value="0"/>
+  <variable name="x_0_4" index="13" value="0"/>
+  <variable name="x_0_5" index="14" value="0"/>
+  <variable name="x_0_6" index="15" value="0"/>
+  <variable name="x_1_1" index="16" value="1"/>
+  <variable name="x_1_2" index="17" value="0"/>
+  <variable name="x_1_3" index="18" value="0"/>
+  <variable name="x_1_4" index="19" value="0"/>
+  <variable name="x_1_5" index="20" value="0"/>
+  <variable name="x_1_6" index="21" value="0"/>
+  <variable name="x_2_1" index="22" value="0"/>
+  <variable name="x_2_2" index="23" value="1"/>
+  <variable name="x_2_3" index="24" value="0"/>
+  <variable name="x_2_4" index="25" value="0"/>
+  <variable name="x_2_5" index="26" value="0"/>
+  <variable name="x_2_6" index="27" value="0"/>
+  <variable name="x_3_1" index="28" value="0"/>
+  <variable name="x_3_2" index="29" value="0"/>
+  <variable name="x_3_3" index="30" value="1"/>
+  <variable name="x_3_4" index="31" value="0"/>
+  <variable name="x_3_5" index="32" value="0"/>
+  <variable name="x_3_6" index="33" value="0"/>
+  <variable name="x_4_1" index="34" value="0"/>
+  <variable name="x_4_2" index="35" value="0"/>
+  <variable name="x_4_3" index="36" value="0"/>
+  <variable name="x_4_4" index="37" value="0"/>
+  <variable name="x_4_5" index="38" value="0"/>
+  <variable name="x_4_6" index="39" value="0"/>
+  <variable name="x_5_1" index="40" value="0"/>
+  <variable name="x_5_2" index="41" value="0"/>
+  <variable name="x_5_3" index="42" value="0"/>
+  <variable name="x_5_4" index="43" value="0"/>
+  <variable name="x_5_5" index="44" value="0"/>
+  <variable name="x_5_6" index="45" value="0"/>
+  <variable name="x_6_1" index="46" value="0"/>
+  <variable name="x_6_2" index="47" value="0"/>
+  <variable name="x_6_3" index="48" value="0"/>
+  <variable name="x_6_4" index="49" value="0"/>
+  <variable name="x_6_5" index="50" value="0"/>
+  <variable name="x_6_6" index="51" value="0"/>
+  <variable name="x_7_1" index="52" value="0"/>
+  <variable name="x_7_2" index="53" value="0"/>
+  <variable name="x_7_3" index="54" value="0"/>
+  <variable name="x_7_4" index="55" value="0"/>
+  <variable name="x_7_5" index="56" value="0"/>
+  <variable name="x_7_6" index="57" value="0"/>
+  <variable name="x_8_1" index="58" value="0"/>
+  <variable name="x_8_2" index="59" value="0"/>
+  <variable name="x_8_3" index="60" value="0"/>
+  <variable name="x_8_4" index="61" value="0"/>
+  <variable name="x_8_5" index="62" value="0"/>
+  <variable name="x_8_6" index="63" value="0"/>
+  <variable name="x_9_1" index="64" value="0"/>
+  <variable name="x_9_2" index="65" value="0"/>
+  <variable name="x_9_3" index="66" value="0"/>
+  <variable name="x_9_4" index="67" value="0"/>
+  <variable name="x_9_5" index="68" value="0"/>
+  <variable name="x_9_6" index="69" value="0"/>
+ </variables>
+</CPLEXSolution>
