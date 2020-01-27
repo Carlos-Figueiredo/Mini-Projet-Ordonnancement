@@ -54,7 +54,7 @@ int select_machine(Problem p, int curr_it) {
     int time_left = p.unavailabilities[i] - p.curr_time[i];
     if (time_left>=maxi) {
       maxi = time_left;
-      index = i;
+      index = i+1;
     }
   }
   if (index==7) {
@@ -62,7 +62,7 @@ int select_machine(Problem p, int curr_it) {
     for (int i=3; i!=7; ++i) {
       if (p.curr_time[i]<=mini) {
         mini = p.curr_time[i];
-        index = i;
+        index = i+1;
       }
     }
     if (mini+p.weights[curr_it] > p.dates[curr_it]) {
@@ -107,13 +107,12 @@ void heuristique1(struct Problem p) {
 */
 void heuristique3(struct Problem p) {
   int* sch_it = p.schedule;
-  int i =1;
-  while (i<=p.size) {
+  int i =0;
+  while (i<p.size) {
     int machine_selected = select_machine(p, i);
     *(sch_it++) = machine_selected;
     i++;
   }
-
 }
 
 
