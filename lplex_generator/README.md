@@ -12,6 +12,7 @@
 # **Exemple par défaut**
 
 ## **problem1.lp**
+
 ### **Explication**
 
 Problème :
@@ -29,4 +30,25 @@ Solution donnée par Cplex :
 - sur machine 1 : tâches 1 et 2
 - sur machine 2 : tâche 3
 - sur machine 3 : tâche 4
+- sur machine 7 : le reste (de 5 à 10)
 
+## **problem2.lp**
+
+### **Explication**
+
+Problème :
+- 5 tâches
+- Durée des tâches : 1, 2, 3, 2 et 3
+- Date limite : 2, 3, 4, 4 et 5
+- Indisponibilités des 3 machines :
+    - Machine 1 : entre 4 et 5
+    - Machine 2 : entre 3 et 5
+    - Machine 3 : entre 5 et 6
+
+### **Solution**
+
+Solution donnée par Cplex :
+- sur machine 1 : tâches 1 et 4
+- sur machine 2 : tâche 2
+- sur machine 3 : tâche 3
+- sur machine 7 : 5
