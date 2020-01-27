@@ -5,6 +5,7 @@ struct Problem {
   int* dates;
   int* schedule;
   int* unavailabilities;
+  int* starts;
   int size;
 };
 
@@ -73,6 +74,49 @@ void heuristique1(struct Problem p) {
       i++;
     }
   }
+}
+
+void heuristique2(struct Problem p) {
+  int i=1;
+  int* sch_it = p.schedule;
+  int* wi = p.weights;
+  while (i <= p.size) {
+    //temps max sur chaque machine
+    int times[7] = {0,0,0,0,0,0,0};
+    t_max(p, times);
+
+    //temps max sur chaque machine après insertion de la tâche
+    int times_new[7] = times;
+    for (int i=1; i<=7; i++) {
+      times_new[i] += *wi;
+    }
+
+    //itérer sur les machines pour trouver les candidates et celle choisie
+    int* di = p.unavailabilities;
+    int tmax = times_new[1];
+    for (int i=1; i<=3; i++) {
+      if (times_new[i] <= di) {
+        if () {
+
+        }
+      }
+      di++;
+    }
+    for (int i=4; i<=6; i++) {
+      
+    }
+
+
+    wi++;
+  }
+}
+
+void t_max(struct Problem p, int* times) {
+  int* w_it = p.weights;
+  for (int* it=p.schedule; it!=p.schedule+p.size; ++it) {
+    times[*it-1] += *(w_it++);
+  }
+  //for (int* it=p.starts)
 }
 
 void display_solution(struct Problem p) {
