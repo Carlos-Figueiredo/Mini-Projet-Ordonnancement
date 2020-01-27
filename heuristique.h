@@ -6,6 +6,7 @@ struct Problem {
   int* schedule;
   int* unavailabilities;
   int* curr_time;
+  int* starts;
   int size;
 };
 
