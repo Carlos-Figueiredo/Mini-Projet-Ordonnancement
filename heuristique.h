@@ -55,7 +55,7 @@ void heuristique1(struct Problem p) {
   int i=1;
   while (i<=p.size) {
     int full[3] = {0,0,0};
-    place_available(p, )cfull);
+    place_available(p, full);
     if (!full[0]) {
       *(sch_it++) = 1;
       i++;
