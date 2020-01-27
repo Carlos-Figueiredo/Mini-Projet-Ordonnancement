@@ -52,7 +52,7 @@ int select_machine(Problem p, int curr_it) {
   for (int i=0; i!=3; ++i) {
     int time_left = p.unavailabilities[i] - p.curr_time[i];
     if (time_left>=maxi) {
-      maxi = p.time_left;
+      maxi = time_left;
       index = i;
     }
   }
