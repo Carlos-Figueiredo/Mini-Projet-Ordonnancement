@@ -1,14 +1,18 @@
-N = 10                              #Nb de tâche    
-M = 100                             #Constance pour l'inégalité
-P = [i + 1 for i in range(N)]       #Duree
-D = [i + 3 for i in range(N)]       #Data limite
-nb_machine = 3
-T = [10, 10, 10, 12, 12, 12]        #Indisponibilité
-t = [0, 0, 0, T[3], T[4], T[5]]
+#Modifiable
+N = 5                               #Nb de tâche    
+P = [1, 2, 3, 2, 3]       #Duree de chaque tâche
+D = [2, 3, 4, 4, 5]       #Data limite de chaque tâche
+T = [4, 3, 5, 5, 5, 6]        #Indisponibilité sur les 3 machines (indice 0, 1 et 2 début de l'indisponibilité)
 
-filename = "problem.lp"
+#PAS TOUCHER
+M = 1000                            #Constance pour l'inégalité
+t = [0, 0, 0, T[3], T[4], T[5]]     #Variables utilisé dans l'écriture des contraintes
+
+#Nom du fichier ou est sotcké le fichier
+filename = "problem2.lp"
 myfile = open(filename, 'w')
 
+#Type du problème
 myfile.write('Min\n\t')
 
 for i in range(N):
