@@ -5,6 +5,7 @@ struct Problem {
   int* dates;
   int* schedule;
   int* unavailabilities;
+  int* starts;
   int size;
 };
 
@@ -39,36 +40,52 @@ void place_available(struct Problem p, int* full) {
   int* t_it = times;
   int* a_it = p.unavailabilities;
   for (int* it=full; it!=full+3; ++it) {
-    if (*(t_it++)>=*(a_it++)) {
-      *it = 1;
+    if (*(t_it) <= *(a_it)) {
+      *it = *(a_it++)-*(t_it++);
+    } else {
+      *it = 0;
     }
   }
+}
+
+int in_time(struct Problem p, int task, int place) {
+  int ct = 0;
+  for (int i=0; i!=p.size; ++i) {
+    if (p.schedule[i] == place) {
+      ct += p.weights[i];
+    }
+  }
+  return (p.starts[task]+ct <= p.dates[task]);
 }
 
 /* 
  * Positionnement des taches par ordre croissant des di
  * TODO: vérifier que la tache peut passer
+ * TODO: vérifier que la tache ne finit pas en retard
+ * TODO: tester les emplacement 4, 5, 6 et y mettre les taches si elles ne sont pas en retard
  * TODO: vérifier qu'une tache n'est pas en retard sinon la mettre en 7
  */
 void heuristique1(struct Problem p) {
   int* sch_it = p.schedule;
   int i=1;
   while (i<=p.size) {
-    int full[3] = {0,0,0};
-    place_available(p, full);
-    if (!full[0]) {
+    int place[3] = {0,0,0};
+    place_available(p, place);
+
+    print_array(place, 3);
+    if (place[0]>=p.weights[i-1] && in_time(p, i-1, 0)) {
       *(sch_it++) = 1;
       i++;
     }
-    if (!full[1]) {
+    if (place[1]>=p.weights[i-1] && in_time(p, i-1, 1)) {
       *(sch_it++) = 2;
       i++;
     }
-    if (!full[2]) {
+    if (place[2]>=p.weights[i-1] && in_time(p, i-1, 2)) {
       *(sch_it++) = 3;
       i++;
     }
-    if ((full[0] && full[1]) && full[2]) {
+    if ((place[0] && place[1]) && place[2]) {
       *(sch_it++) = 7;
       i++;
     }
