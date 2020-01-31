@@ -1,4 +1,5 @@
 #include <stdio.h>
+#include <limits.h>
 
 struct Problem {
   int* weights;
@@ -92,15 +93,35 @@ void heuristique1(struct Problem p) {
   }
 }
 
+void t_max(struct Problem p, int* times) {
+  int* w_it = p.weights;
+  for (int* it=p.schedule; it!=p.schedule+p.size; ++it) {
+    times[*it-1] += *w_it;
+    //printf("%d ", *it-1);
+    //printf("%d ", times[*it-1]);
+    w_it++;
+  }
+  int* pi = p.starts;
+  for (int i=0; i<6; i++) {
+    //printf("%d ", times[i]);
+    //printf("%d ", *pi);
+    times[i] += *pi;
+    pi++;
+  }
+  //printf("%d ", times[6]);
+}
 
-/* placer les tâches à t le plus petit
+
+/* placer les tâches à t le plus grand
 sur les machines possibles
 telles que la tâche est finie à temps*/
 void heuristique2(struct Problem p) {
-  int i=1;
+  int task = 0;
   int* sch_it = p.schedule;
   int* wi = p.weights;
-  while (i <= p.size) {
+  int* di = p.dates;
+  while (task < p.size) {
+    printf("%d ", *di);
     //temps max sur chaque machine
     int times[7] = {0,0,0,0,0,0,0};
     int times_new[7] = {0,0,0,0,0,0,0};
@@ -108,47 +129,93 @@ void heuristique2(struct Problem p) {
 
     //temps max sur chaque machine après insertion de la tâche
     t_max(p, times_new);
-    for (int i=1; i<=7; i++) {
-      times_new[i] += *wi;
+    for (int machine = 0; machine < 7; machine++) {
+      //printf("%d ", times_new[machine]);
+      times_new[machine] += *wi;
+      //printf("%d ", times_new[machine]);
     }
 
     //itérer sur les machines pour trouver les candidates et celle choisie
-    int* di = p.dates;
     int* ui = p.unavailabilities;
-    int t = 0;
-    int m = 7;
-    for (int i=1; i<=3; i++) {
-      if ((times_new[i] <= *di) && (times_new[i] <= *ui) && (times[i] > t)) {
-        t = times[i];
-        m = i;
+    int t = -1;
+    int m = 6;
+    for (int machine = 0; machine < 3; machine++) {
+      printf("%d ", times_new[machine]);
+      printf("%d ", *ui);
+      if ((times_new[machine] <= *di) && (times_new[machine] <= *ui) && (times[machine] > t)) {
+        t = times[machine];
+        m = machine;
         }
-      di++;
       ui++;
     }
-    for (int i=4; i<=6; i++) {
-      if (times[i] > t) {
-        t = times[i];
-        m = i;
+    for (int machine=4; machine<=6; machine++) {
+      if ((times_new[machine] <= *di) && (times[machine] > t)) {
+        t = times[machine];
+        m = machine;
       }
-      di++;
       ui++;
     }
     wi++;
-    *sch_it = m;
+    di++;
+    *sch_it = m + 1;
+    printf("\n %d ", *sch_it);
+    sch_it++;
+    task++;
   }
 }
 
-void t_max(struct Problem p, int* times) {
-  int* w_it = p.weights;
-  for (int* it=p.schedule; it!=p.schedule+p.size; ++it) {
-    times[*it-1] += *(w_it++);
-  }
-  int* pi = p.starts;
-  for (int i=0; i<7; i++) {
-    times[i] += *pi;
-    pi++;
+/* placer les tâches à t le plus petit
+sur les machines possibles
+telles que la tâche est finie à temps*/
+void heuristique3(struct Problem p) {
+  int task = 0;
+  int* sch_it = p.schedule;
+  int* wi = p.weights;
+  int* di = p.dates;
+  while (task < p.size) {
+    printf("%d ", *di);
+    //temps max sur chaque machine
+    int times[7] = {0,0,0,0,0,0,0};
+    int times_new[7] = {0,0,0,0,0,0,0};
+    t_max(p, times);
+
+    //temps max sur chaque machine après insertion de la tâche
+    t_max(p, times_new);
+    for (int machine = 0; machine < 7; machine++) {
+      //printf("%d ", times_new[machine]);
+      times_new[machine] += *wi;
+      //printf("%d ", times_new[machine]);
+    }
+
+    //itérer sur les machines pour trouver les candidates et celle choisie
+    int* ui = p.unavailabilities;
+    int t = INT_MAX;
+    int m = 6;
+    for (int machine = 0; machine < 3; machine++) {
+      printf("%d ", times_new[machine]);
+      printf("%d ", *ui);
+      if ((times_new[machine] <= *di) && (times_new[machine] <= *ui) && (times[machine] < t)) {
+        t = times[machine];
+        m = machine;
+        }
+      ui++;
+    }
+    for (int machine=4; machine<=6; machine++) {
+      if ((times_new[machine] <= *di) && (times[machine] < t)) {
+        t = times[machine];
+        m = machine;
+      }
+      ui++;
+    }
+    wi++;
+    di++;
+    *sch_it = m + 1;
+    printf("\n %d ", *sch_it);
+    sch_it++;
+    task++;
   }
 }
+
 
 void display_solution(struct Problem p) {
   printf("Schedule: ");

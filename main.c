@@ -25,8 +25,7 @@ int main(int argc, char** argv) {
   print_array(full, 3);
   printf("\n");*/
 
-
-  heuristique2(p);
+  heuristique3(p);
   display_solution(p);
 
   return 0;
