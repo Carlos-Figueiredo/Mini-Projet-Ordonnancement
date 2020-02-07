@@ -1,15 +1,15 @@
 #Modifiable
-N = 5                               #Nb de tâche    
-P = [1, 2, 3, 2, 3]       #Duree de chaque tâche
-D = [2, 3, 4, 4, 5]       #Data limite de chaque tâche
-T = [4, 3, 5, 5, 5, 6]        #Indisponibilité sur les 3 machines (indice 0, 1 et 2 début de l'indisponibilité)
+N = 10                               #Nb de tâche    
+P = [(i + 1) % 6 for i in range(5)] + [-(i + 1) % 6 for i in range(5)] #Duree de chaque tâche
+D = [i + 3 for i in range(N)]       #Data limite de chaque tâche
+T = [8, 8, 8, 10, 10, 10]           #Indisponibilité sur les 3 machines (indice 0, 1 et 2 début de l'indisponibilité)
 
 #PAS TOUCHER
 M = 1000                            #Constance pour l'inégalité
-t = [0, 0, 0, T[3], T[4], T[5]]     #Variables utilisé dans l'écriture des contraintes
+t = [0, 0, 0, T[3], T[4], T[5]]     #Variables utilisées dans l'écriture des contraintes
 
-#Nom du fichier ou est sotcké le fichier
-filename = "problem2.lp"
+#Nom du fichier ou est sotcké le problème
+filename = "problem3.lp"
 myfile = open(filename, 'w')
 
 #Type du problème
