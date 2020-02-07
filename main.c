@@ -18,11 +18,15 @@ int main(int argc, char** argv) {
   p.starts = starts;
   p.size = SIZE;
 
-  heuristique1(p);
+  /*heuristique1(p);
   display_solution(p);
   int full[3] = {0,0,0};
   place_available(p, full);
   print_array(full, 3);
-  printf("\n");
+  printf("\n");*/
+
+  heuristique3(p);
+  display_solution(p);
+
   return 0;
 }
