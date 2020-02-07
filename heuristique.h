@@ -55,7 +55,6 @@ int in_time(struct Problem p, int task, int place) {
       ct += p.weights[i];
     }
   }
-  printf("ct: %d\n", ct);
   return (p.starts[task-1]+ct <= p.dates[task-1]);
 }
 
@@ -69,13 +68,12 @@ int in_time(struct Problem p, int task, int place) {
 void heuristique1(struct Problem p) {
   int* sch_it = p.schedule;
   int i=1;
-  while (i<=p.size) {
+  while (i <= p.size) {
     int place[3] = {0,0,0};
+    //On calcul la place qu'il reste dans les machines avant l'indisponibilité
     place_available(p, place);
-
+    //On sauvegarde l'indice de la tâche courant
     int current_task = i;
-    print_array(place, 3);
-    printf("\n%d %d %d %d\n", i, p.weights[i-1], place[0], in_time(p, i, 0));
     if (place[0]>=p.weights[i-1] && in_time(p, i, 1)) {
       *(sch_it++) = 1;
       i++;
@@ -88,15 +86,15 @@ void heuristique1(struct Problem p) {
       *(sch_it++) = 3;
       i++;
     }
-    if (i==current_task) { //on a pas réussi à placer la tache i avant l'indisponibilité
+    if (i == current_task) { //on a pas réussi à placer la tache i avant l'indisponibilité
       if (in_time(p, i, 4)) {
-        *(sch_it) = 4;
+        *(sch_it++) = 4;
         i++;
       } else if (in_time(p, i, 5)) {
-        *(sch_it) = 5;
+        *(sch_it)++ = 5;
         i++;
       } else if (in_time(p, i, 6)) {
-        *(sch_it) = 6;
+        *(sch_it)++ = 6;
         i++;
       } else {
         *(sch_it++) = 7;
