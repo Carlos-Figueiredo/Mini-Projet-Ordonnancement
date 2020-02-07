@@ -5,6 +5,7 @@ struct Problem {
   int* dates;
   int* schedule;
   int* unavailabilities;
+  int* curr_time;
   int* starts;
   int size;
 };
@@ -40,10 +41,8 @@ void place_available(struct Problem p, int* full) {
   int* t_it = times;
   int* a_it = p.unavailabilities;
   for (int* it=full; it!=full+3; ++it) {
-    if (*(t_it) <= *(a_it)) {
-      *it = *(a_it++)-*(t_it++);
-    } else {
-      *it = 0;
+    if (*(t_it++)>=*(a_it++)) {
+      *it = 1;
     }
   }
 }
@@ -59,11 +58,34 @@ int in_time(struct Problem p, int task, int place) {
   return (p.starts[task-1]+ct <= p.dates[task-1]);
 }
 
+int select_machine(struct Problem p, int curr_it) {
+  int index = 7;
+  int maxi = p.weights[curr_it];
+  for (int i=0; i!=3; ++i) {
+    int time_left = p.unavailabilities[i] - p.curr_time[i];
+    if (time_left>=maxi && p.curr_time[i] + p.weights[curr_it] <= p.dates[curr_it]) {
+      maxi = time_left;
+      index = i+1;
+    }
+  }
+  if (index==7) {
+    int mini = p.curr_time[3];
+    for (int i=3; i!=7; ++i) {
+      if (p.curr_time[i]<=mini) {
+        mini = p.curr_time[i];
+        index = i+1;
+      }
+    }
+    if (mini+p.weights[curr_it] > p.dates[curr_it]) {
+      index = 7;
+    }
+  }
+  return index;
+}
+
 /**
  * Positionnement des taches par ordre croissant des di
  * TODO: vérifier que la tache peut passer
- * TODO: vérifier que la tache ne finit pas en retard
- * TODO: tester les emplacement 4, 5, 6 et y mettre les taches si elles ne sont pas en retard
  * TODO: vérifier qu'une tache n'est pas en retard sinon la mettre en 7
  */
 void heuristique1(struct Problem p) {
@@ -105,6 +127,20 @@ void heuristique1(struct Problem p) {
     }
   }
 }
+
+/*
+* Positionner la tache sur la machine où il reste le plus de place
+*/
+void heuristique3(struct Problem p) {
+  int* sch_it = p.schedule;
+  int i =0;
+  while (i<p.size) {
+    int machine_selected = select_machine(p, i);
+    *(sch_it++) = machine_selected;
+    i++;
+  }
+}
+
 
 void display_solution(struct Problem p) {
   printf("Schedule: ");
