@@ -26,8 +26,9 @@ int main(){
 
 	struct Problem* solutions[NBSOLUTIONS];
 	for (int i = 0; i < NBSOLUTIONS; i++) {
+		int* tab = malloc(sizeof(*tab)*7*NUMBEROFTASKS);
 		struct Problem* p = malloc(sizeof(*p));
-		p->placements = &placements[0][0];
+		p->placements = tab;
 		p->limitDate = &limitDate[0];
 		p->indisponibleStart = &indisponibleStart[0];
 		p->indisponibleFinish = &indisponibleFinish[0];
