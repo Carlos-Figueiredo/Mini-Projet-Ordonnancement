@@ -168,7 +168,7 @@ int compare(const void* solutionA, const void * solutionB){
 
 //order solutions, the ones after BOUNDARY1 will be overwritten by add_mutations and add_random_solutions
 void pruning(struct Problem* solutions[NBSOLUTIONS]) {
-	qsort(solutions, NBSOLUTIONS, sizeof(*solutions[0]), compare);
+	qsort(&solutions, NBSOLUTIONS, sizeof(solutions[0]), compare);
 }
 
 void add_mutations(struct Problem* solutions[NBSOLUTIONS]){
