@@ -197,7 +197,26 @@ void make_random(struct Problem* p) {
 }
 
 void add_random_solutions(struct Problem* solutions[NBSOLUTIONS]) {
-	for (int i = BOUNDARY2; i < solution[0]->number_of_tasks; i++) {
+	for (int i = BOUNDARY2; i < solutions[0]->number_of_tasks; i++) {
 		make_random(solutions[i]);
 	}
+}
+
+struct Problem* genetique_algo(struct Problem* solutions[NBSOLUTIONS], int nb_iterations) {
+	for (int iteration = 0; iteration < nb_iterations; iteration++) {
+		pruning(solutions);
+		add_mutations(solutions);
+		add_random_solutions(solutions);
+	}
+	pruning(solutions);
+	int acceptable = 0;
+	int solution_id = 0;
+	while (!acceptable && solution_id < NBSOLUTIONS) {
+		if (is_valid(solutions[solution_id])) {
+			return solutions[solution_id];
+		}
+		solution_id++;
+	}
+	printf("No valid solution found");
+	return solutions[NBSOLUTIONS-1];
 }
