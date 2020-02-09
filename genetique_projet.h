@@ -5,7 +5,7 @@
 #define NUMBEROFTASKS 10
 #define NBSOLUTIONS 50
 #define BOUNDARY1 25 //number of solutions kept while prunning
-#define BOUNDARY2 40
+#define BOUNDARY2 40 //between boudaries 1 and 2 make mutations, after boundary 2 insert random solutions
 
 //srand((unsigned) time(NULL));
 
@@ -70,6 +70,7 @@ struct Problem{
 	int* limitDate;
 };
 
+//number of tasks on M7
 int not_done(struct Problem * p){
   int sum;
 	sum = 0;
@@ -79,6 +80,7 @@ int not_done(struct Problem * p){
 	return sum;
 }
 
+//number of tasks not done in time (objective)
 int not_in_time(struct Problem *p){
 	int nb_tasks;
 	nb_tasks = 0;
@@ -108,9 +110,9 @@ int not_in_time(struct Problem *p){
 	return nb_tasks;
 }
 
+//1 if solution is valid, 0 otherwise
 int is_valid(struct Problem* p){
 	int sum;
-
   // Guarantees that we finish before the indisponibilitie starts
   for (int j = 0; j < 3; j++) {
     sum = 0;
@@ -121,7 +123,6 @@ int is_valid(struct Problem* p){
       return 0;
 		}
   }
-
   // All tasks are in at least one machine
   for (int i = 0; i < p->number_of_tasks; i++) {
     sum = 0;
@@ -132,7 +133,6 @@ int is_valid(struct Problem* p){
       return 0;
 		}
   }
-
   // From 1 to 3, all finish before deadline
   for (int j = 0; j < 3; j++) {
     sum = 0;
@@ -143,7 +143,6 @@ int is_valid(struct Problem* p){
 			}
     }
   }
-
   // From 4 to 6, all finish before deadline
   for (int j = 3; j < 6; j++) {
     sum = *(p->indisponibleFinish + j);
@@ -158,6 +157,7 @@ int is_valid(struct Problem* p){
   return 1;
 }
 
+//compare two solutions
 int compare(const void* solutionA, const void * solutionB){
 	int nb_delayedA;
 	int nb_delayedB;
@@ -166,6 +166,7 @@ int compare(const void* solutionA, const void * solutionB){
 	return nb_delayedA - nb_delayedB;
 }
 
+//order solutions, the ones after BOUNDARY1 will be overwritten by add_mutations and add_random_solutions
 void pruning(struct Problem* solutions[NBSOLUTIONS]) {
 	qsort(solutions, NBSOLUTIONS, sizeof(*solutions[0]), compare);
 }
@@ -196,7 +197,7 @@ void make_random(struct Problem* p) {
 }
 
 void add_random_solutions(struct Problem* solutions[NBSOLUTIONS]) {
-	for (int i = BOUNDARY1; i < BOUNDARY2; i++) {
+	for (int i = BOUNDARY2; i < solution[0]->number_of_tasks; i++) {
 		make_random(solutions[i]);
 	}
 }
