@@ -129,7 +129,8 @@ int is_valid(struct Problem* p){
     for (int j = 0; j < 7; j++){
       sum += *(p->placements + j*p->number_of_tasks + i); 
     }
-    if(sum =! 1) {
+		printf("%d ", sum);
+    if(sum != 1) {
       return 0;
 		}
   }
@@ -168,7 +169,7 @@ int compare(const void* solutionA, const void * solutionB){
 
 //order solutions, the ones after BOUNDARY1 will be overwritten by add_mutations and add_random_solutions
 void pruning(struct Problem* solutions[NBSOLUTIONS]) {
-	qsort(&solutions, NBSOLUTIONS, sizeof(solutions[0]), compare);
+	qsort((void*)&solutions, NBSOLUTIONS, sizeof(solutions[0]), compare);
 }
 
 void add_mutations(struct Problem* solutions[NBSOLUTIONS]){
