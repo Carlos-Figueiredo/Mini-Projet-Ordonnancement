@@ -129,7 +129,6 @@ int is_valid(struct Problem* p){
     for (int j = 0; j < 7; j++){
       sum += *(p->placements + j*p->number_of_tasks + i); 
     }
-		printf("%d ", sum);
     if(sum != 1) {
       return 0;
 		}
@@ -169,7 +168,7 @@ int compare(const void* solutionA, const void * solutionB){
 
 //order solutions, the ones after BOUNDARY1 will be overwritten by add_mutations and add_random_solutions
 void pruning(struct Problem* solutions[NBSOLUTIONS]) {
-	qsort((void*)&solutions, NBSOLUTIONS, sizeof(solutions[0]), compare);
+	qsort(solutions, sizeof(solutions)/sizeof(solutions[0]), sizeof(solutions[0]), compare);
 }
 
 void add_mutations(struct Problem* solutions[NBSOLUTIONS]){
@@ -203,6 +202,13 @@ void add_random_solutions(struct Problem* solutions[NBSOLUTIONS], int boundary) 
 	}
 }
 
+void display(struct Problem* p) {
+	for (int i = 0; i != (p->number_of_tasks * 7); i++) {
+		printf("%d ", *(p->placements + i));
+	}
+	printf("\n stop \n");
+}
+
 struct Problem* genetique_algo(struct Problem* solutions[NBSOLUTIONS], int nb_iterations) {
 	add_random_solutions(solutions, 0);
 	for (int iteration = 0; iteration < nb_iterations; iteration++) {
@@ -214,6 +220,7 @@ struct Problem* genetique_algo(struct Problem* solutions[NBSOLUTIONS], int nb_it
 	int acceptable = 0;
 	int solution_id = 0;
 	while (!acceptable && solution_id < NBSOLUTIONS) {
+		display(solutions[solution_id]);
 		if (is_valid(solutions[solution_id])) {
 			return solutions[solution_id];
 		}
@@ -222,3 +229,5 @@ struct Problem* genetique_algo(struct Problem* solutions[NBSOLUTIONS], int nb_it
 	printf("No valid solution found");
 	return solutions[NBSOLUTIONS-1];
 }
+
+

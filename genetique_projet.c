@@ -39,8 +39,8 @@ int main(){
 	
 	add_random_solutions(solutions, 0);
 	add_mutations(solutions);
-	//pruning(solutions);
-	//struct Problem retained_solution;
-	//retained_solution = *(genetique_algo(solutions, 10));
+	pruning(solutions);
+	struct Problem retained_solution;
+	retained_solution = *(genetique_algo(solutions, 10000));
 
 	}
