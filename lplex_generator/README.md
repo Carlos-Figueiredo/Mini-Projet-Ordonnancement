@@ -11,28 +11,7 @@
 
 # **Exemple par défaut**
 
-## **problem1.lp**
-
-### **Explication**
-
-Problème :
-- 10 tâches (de 1 à 10)
-- Tâche *i* est de durée *i*
-- Tâche *i* a une date limite de *i + 2*
-- Indisponibilités des 3 machines :
-    - Machine 1 : entre 10 et 12
-    - Machine 2 : entre 10 et 12
-    - Machine 3 : entre 10 et 12
-
-### **Solution**
-
-Solution donnée par Cplex :
-- sur machine 1 : tâches 1 et 2
-- sur machine 2 : tâche 3
-- sur machine 3 : tâche 4
-- sur machine 7 : le reste (de 5 à 10)
-
-## **problem2.lp**
+## Problem
 
 ### **Explication**
 
@@ -48,7 +27,6 @@ Problème :
 ### **Solution**
 
 Solution donnée par Cplex :
-- sur machine 1 : tâches 1 et 4
-- sur machine 2 : tâche 2
-- sur machine 3 : tâche 3
-- sur machine 7 : 5
+- sur machine 1 : tâches 1 et 2
+- sur machine 2 : tâche 3
+- sur machine 3 : tâche 4 et 5

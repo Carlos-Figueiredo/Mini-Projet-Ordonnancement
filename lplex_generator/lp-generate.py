@@ -1,15 +1,15 @@
 #Modifiable
-N = 10                               #Nb de tâche    
-P = [(i + 1) % 6 for i in range(5)] + [-(i + 1) % 6 for i in range(5)] #Duree de chaque tâche
-D = [i + 3 for i in range(N)]       #Data limite de chaque tâche
-T = [8, 8, 8, 10, 10, 10]           #Indisponibilité sur les 3 machines (indice 0, 1 et 2 début de l'indisponibilité)
+N = 5                               #Nb de tâche    
+P = [1, 2, 3, 2, 3]                 #Duree de chaque tâche
+D = [2, 3, 4, 4, 5]                 #Data limite de chaque tâche
+T = [4, 3, 5, 5, 5, 6]              #Indisponibilité sur les 3 machines (indice 0, 1 et 2 début de l'indisponibilité)
 
 #PAS TOUCHER
 M = 1000                            #Constance pour l'inégalité
 t = [0, 0, 0, T[3], T[4], T[5]]     #Variables utilisées dans l'écriture des contraintes
 
 #Nom du fichier ou est sotcké le problème
-filename = "problem3.lp"
+filename = "problem.lp"
 myfile = open(filename, 'w')
 
 #Type du problème
@@ -32,7 +32,7 @@ for i in range(N):
 for j in range(1, 4):
     for i in range(N):
         if (i == N-1):
-            myfile.write(str(P[i]) + " x_" + str(i) + "_" + str(j) + " <= " + str(T[1]) + "\n\t")
+            myfile.write(str(P[i]) + " x_" + str(i) + "_" + str(j) + " <= " + str(T[j-1]) + "\n\t")
         else:
             myfile.write(str(P[i]) + " x_" + str(i) + "_" + str(j) + " + ")
 
@@ -40,9 +40,9 @@ for j in range(1, 7):
     for i in range(N):
         for k in range(i + 1):
             if (k == i):
-                myfile.write(str(P[i] + M) + " x_" + str(k) + "_" + str(j) + " <= " + str(D[i] + M - t[j - 1]) + "\n\t")
+                myfile.write(str(P[k] + M) + " x_" + str(k) + "_" + str(j) + " <= " + str(D[i] + M - t[j - 1]) + "\n\t")
             else:
-                myfile.write(str(P[i]) + " x_" + str(k) + "_" + str(j) + " + ")
+                myfile.write(str(P[k]) + " x_" + str(k) + "_" + str(j) + " + ")
 
 myfile.write("\nBinary\n\t")
 for i in range(N):
