@@ -200,3 +200,15 @@ float new_son(struct Problem* solutions[NBSOLUTIONS], int* placements_new) {
 
   return avg;
 }
+
+struct Problem* best(struct Problem* solutions[NBSOLUTIONS]) {
+	int best = not_done(solutions[0]);
+	struct Problem* best_it = solutions[0];
+	for (int i = 0; i < NBSOLUTIONS; i++) {
+		if (not_done(solutions[i]) < best) {
+				best = not_done(solutions[i]);
+				best_it = solutions[i];
+		}
+	}
+	return best_it;
+}

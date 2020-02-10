@@ -77,13 +77,13 @@ int main(){
   for (int i = 0; i < 10000; i++) {
     sum += avg[i];
     if(i != 0 && i % 1000 == 0){
-      printf("%f\n", sum/10000);
+      printf("%f\n", new_solutions[0]->number_of_tasks - sum/10000);
       sum = 0;
     }
   }
 
-	display(new_solutions[0]);
-
+	struct Problem* champion = best(new_solutions);
+	display(champion);
   /*
 
 	add_random_solutions(old_solutions, 0);
