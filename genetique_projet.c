@@ -1,6 +1,7 @@
 #include "genetique_projet.h"
 
 int main(){
+	srand(time(0));
   int placements[7][NUMBEROFTASKS] = {{0, 0, 0, 0, 0}, {0, 1, 0, 0, 0}, {0, 0, 1, 0, 0},
                                     {0, 0, 0, 0, 0}, {0, 0, 0, 1, 0}, {0, 0, 0, 0, 0}, {1, 0, 0, 0, 1}};
   /*int limitDate[NUMBEROFTASKS] = {2, 3, 4, 7, 8};
@@ -81,12 +82,8 @@ int main(){
     }
   }
 
-	for (int j = 0; j < 7; j++) {
-		for (int i = 0; i < new_solutions[0]->number_of_tasks; i++) {
-			printf("%d ", *(new_solutions[0]->placements + j*new_solutions[0]->number_of_tasks + i));
-		}
-		printf("\n");
-	}
+	display(new_solutions[0]);
+
   /*
 
 	add_random_solutions(old_solutions, 0);

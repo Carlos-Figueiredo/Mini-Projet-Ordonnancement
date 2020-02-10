@@ -7,8 +7,6 @@
 #define BOUNDARY1 25 //number of solutions kept while prunning
 #define BOUNDARY2 40 //between boudaries 1 and 2 make mutations, after boundary 2 insert random solutions
 
-//srand((unsigned) time(NULL));
-
 struct Problem{
 	int number_of_tasks;
 	int* placements;
@@ -127,72 +125,14 @@ int compare(const void* solutionA, const void * solutionB){
 	return nb_delayedA - nb_delayedB;
 }
 
-//order solutions, the ones after BOUNDARY1 will be overwritten by add_mutations and add_random_solutions
-//void pruning(struct Problem* solutions[NBSOLUTIONS]) {
-//	qsort(solutions, sizeof(solutions)/sizeof(solutions[0]), sizeof(solutions[0]), compare);
-//}
-
-void add_mutations(struct Problem* solutions[NBSOLUTIONS]){
-	int dimension = 7 * (solutions[0]->number_of_tasks);
-	//do a mutation
-	for (int i = BOUNDARY1; i < BOUNDARY2; i++){
-		//randomly choose one of the problem kept while prunning and a mutation location
-		int model_id = rand() % BOUNDARY1;
-		int mutation_id = rand() % dimension;
-		//copy placements from the model to the mutant
-		for (int j = 0; j < dimension; j++) {
-			*(solutions[i]->placements + j) = *(solutions[model_id]->placements + j);
-		}
-		//add the mutation
-		*(solutions[i]->placements + mutation_id) = (*(solutions[model_id]->placements + mutation_id) + 1) % 2;
-	}
-}
-
-void make_random(struct Problem* p) {
-	int dimension = 7 * (p->number_of_tasks);
-	int value;
-	for (int i = 0; i < dimension; i++) {
-		value = rand() % 2;
-		*(p->placements + i) = value;
-	}
-}
-
-void add_random_solutions(struct Problem* solutions[NBSOLUTIONS], int boundary) {
-	for (int i = boundary; i < solutions[0]->number_of_tasks; i++) {
-		make_random(solutions[i]);
-	}
-}
-
-
-struct Problem* genetique_algo(struct Problem* solutions[NBSOLUTIONS], int nb_iterations) {
-	add_random_solutions(solutions, 0);
-	for (int iteration = 0; iteration < nb_iterations; iteration++) {
-		//pruning(solutions);
-		add_mutations(solutions);
-		add_random_solutions(solutions, BOUNDARY2);
-	}
-	//pruning(solutions);
-	int acceptable = 0;
-	int solution_id = 0;
-	while (!acceptable && solution_id < NBSOLUTIONS) {
-		//display(solutions[solution_id]);
-		if (is_valid(solutions[solution_id])) {
-			return solutions[solution_id];
-		}
-		solution_id++;
-	}
-	printf("No valid solution found");
-	return solutions[NBSOLUTIONS-1];
-}
-
 // Displays placement
 void display(struct Problem* p) {
-	for (int i = 0; i != (p->number_of_tasks * 7); i++) {
-    if(i%p->number_of_tasks == 0 && i != 0)
-      printf("\n");
-		printf("%d", *(p->placements + i));
+	for (int j = 0; j < 7; j++) {
+		for (int i = 0; i < p->number_of_tasks; i++) {
+			printf("%d ", *(p->placements + j*p->number_of_tasks + i));
+		}
+		printf("\n");
 	}
-	printf("\n stop \n");
 }
 
 // Creates our mutations - We take one task of the machine it is currently one and assign it to a random machine
