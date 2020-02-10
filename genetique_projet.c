@@ -2,8 +2,8 @@
 
 int main(){
 	srand(time(0));
-  int placements[7][NUMBEROFTASKS] = {{0, 0, 0, 0, 0}, {0, 1, 0, 0, 0}, {0, 0, 1, 0, 0},
-                                    {0, 0, 0, 0, 0}, {0, 0, 0, 1, 0}, {0, 0, 0, 0, 0}, {1, 0, 0, 0, 1}};
+  int placements[7][NUMBEROFTASKS] = {{1, 0, 0, 0, 0}, {0, 1, 0, 0, 0}, {0, 0, 1, 0, 0},
+                                    {0, 0, 0, 0, 0}, {0, 0, 0, 0, 0}, {0, 0, 0, 0, 0}, {0, 0, 0, 1, 1}};
   /*int limitDate[NUMBEROFTASKS] = {2, 3, 4, 7, 8};
   int indisponibleStart[6] = {4, 3, 5, 0, 0, 0};
   int indisponibleFinish[6] = {0, 0, 0, 5, 5, 6};
@@ -72,16 +72,16 @@ int main(){
   float sum = 0;
 
   // We analyse how the fit evolved during the evolutionary process
-  printf("%f\n", avg[0]);
+  printf("Initial fit - %f\n", avg[0]);
 
   for (int i = 0; i < 10000; i++) {
     sum += avg[i];
     if(i != 0 && i % 1000 == 0){
-      printf("%f\n", new_solutions[0]->number_of_tasks - sum/10000);
+      printf("Avg fit generation %d %f\n", i, sum/1000);
       sum = 0;
     }
   }
-
+	printf("Our base solution from the last generation:");
 	struct Problem* champion = best(new_solutions);
 	display(champion);
   /*
