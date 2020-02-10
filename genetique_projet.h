@@ -175,7 +175,7 @@ struct Problem* genetique_algo(struct Problem* solutions[NBSOLUTIONS], int nb_it
 	int acceptable = 0;
 	int solution_id = 0;
 	while (!acceptable && solution_id < NBSOLUTIONS) {
-		display(solutions[solution_id]);
+		//display(solutions[solution_id]);
 		if (is_valid(solutions[solution_id])) {
 			return solutions[solution_id];
 		}
@@ -229,13 +229,14 @@ float new_son(struct Problem* solutions[NBSOLUTIONS], int* placements_new) {
     sum += fit[i];
   }
 
+  // Get the avg fit for further analysis later
   avg = (double) sum/NBSOLUTIONS;
 
-  // Roulette (choose which member of the old generation is going to be the father, the higher the fit, the bigger the chance)
+  // Roulette (choose which member of the old generation is going to be the father - the higher the fit, the bigger the chance)
   int luck = rand();
   luck = luck%sum;
   int select_ind;
-  sum = 1;
+  sum = 0;
 
   for (int i = 0; i < NBSOLUTIONS; i++) {
     if(sum <= luck && sum + fit[i] >= luck)

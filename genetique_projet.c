@@ -3,8 +3,6 @@
 int main(){
   int placements[7][NUMBEROFTASKS] = {{0, 0, 0, 0, 0}, {0, 1, 0, 0, 0}, {0, 0, 1, 0, 0},
                                     {0, 0, 0, 0, 0}, {0, 0, 0, 1, 0}, {0, 0, 0, 0, 0}, {1, 0, 0, 0, 1}};
-  int placements2[7][NUMBEROFTASKS] = {{1, 1, 1, 1, 0}, {0, 1, 0, 0, 0}, {0, 0, 1, 0, 0},
-                                    {0, 0, 0, 0, 0}, {0, 0, 0, 1, 0}, {0, 0, 0, 0, 0}, {0, 0, 0, 0, 1}};
   int limitDate[NUMBEROFTASKS] = {2, 3, 4, 7, 8};
   int indisponibleStart[6] = {4, 3, 5, 0, 0, 0};
   int indisponibleFinish[6] = {0, 0, 0, 5, 5, 6};
@@ -18,16 +16,6 @@ int main(){
 	p.indisponibleFinish = &indisponibleFinish[0];
 	p.durations = &durations[0];
 	p.number_of_tasks = number_of_tasks;
-
-	int nb_not_done = not_done(&p);
-  printf("%d\n", nb_not_done);
-
-	int ok = is_valid(&p);
-
-	//make_random(&p);
-	int comp = compare(&p, &p);
-  //display(&p);
-  //printf("%d\n", is_valid(&p));
 
 
 	struct Problem* old_solutions[NBSOLUTIONS];
@@ -58,16 +46,17 @@ int main(){
 		new_solutions[i] = new_p;
 	}
 
-  display(new_solutions[0]);
   float avg[10000];
 
   for (int i = 0; i < 10000; i++) {
+    // Generate new generation
     for (int j = 0; j < NBSOLUTIONS; j++) {
       // Generate new son
       avg[i] = new_son(old_solutions, new_solutions[j]->placements);
     }
     //copy new solutions to old solutions so we can start another generation
     for (int k = 0; k < NBSOLUTIONS; k++) {
+      // We assume that all new borns respect all the rules, but just to make sure...
       if(!is_valid(new_solutions[k]))
         printf("Something is terribly wrong\n");
       copy_placements(old_solutions[k]->placements, new_solutions[k]->placements);
