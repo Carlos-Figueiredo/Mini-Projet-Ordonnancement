@@ -8,6 +8,7 @@ int main(int argc, char** argv) {
   int dates[SIZE]   = {2, 3, 4, 4, 5};
   int unavailabilities[3] = {4, 3, 5};
   int starts[6] = {0, 0, 0, 5, 5, 6};
+  int curr_time[6] = {0, 0, 0, 5, 5, 6};
   int schedule[SIZE] = {7,7,7,7,7};
 
   int schedule_raw[SIZE] = {7,7,7,7,7};
@@ -19,6 +20,7 @@ int main(int argc, char** argv) {
   p.schedule = schedule;
   p.unavailabilities = unavailabilities;
   p.starts = starts;
+  p.curr_time = curr_time;
   p.size = SIZE;
 
 	printf("Heuristique 1\n\n");
@@ -35,6 +37,13 @@ int main(int argc, char** argv) {
   reset(&p, &schedule_raw[0]);
   p.schedule = schedule;
   heuristique3(p);
+  display_solution(p);
+  printf("\n");
+  
+  printf("\n\nHeuristique 4\n\n");
+  reset(&p, &schedule_raw[0]);
+  p.schedule = schedule;
+  heuristique4(p);
   display_solution(p);
 
   /*int full[3] = {0,0,0};

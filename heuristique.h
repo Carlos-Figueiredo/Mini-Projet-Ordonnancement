@@ -7,6 +7,7 @@ struct Problem {
   int* schedule;
   int* unavailabilities;
   int* starts;
+  int* curr_time;
   int size;
 };
 
@@ -289,3 +290,43 @@ void heuristique3(struct Problem p) {
   }
 }
 
+int select_machine_heuristique4(struct Problem p, int curr_it) {
+  int index = 7;
+  int maxi = p.weights[curr_it];
+  for (int i=0; i!=3; ++i) {
+    int time_left = p.unavailabilities[i] - p.curr_time[i];
+    if (time_left>=maxi && p.curr_time[i] + p.weights[curr_it] <= p.dates[curr_it]) {
+      maxi = time_left;
+      index = i+1;
+    }
+  }
+  if (index==7) {
+    int mini = p.curr_time[3];
+    for (int i=3; i!=6; ++i) {
+      if (p.curr_time[i]<=mini) {
+        mini = p.curr_time[i];
+        index = i+1;
+      }
+    }
+    if (mini+p.weights[curr_it] > p.dates[curr_it]) {
+      index = 7;
+    }
+  }
+  return index;
+}
+
+/*
+* Positionner la tache sur la machine où il reste le plus de place
+*/
+void heuristique4(struct Problem p) {
+  int* sch_it = p.schedule;
+  int i =0;
+  while (i<p.size) {
+    int machine_selected = select_machine_heuristique4(p, i);
+    *(sch_it++) = machine_selected;
+    if (machine_selected!=7){
+      p.curr_time[machine_selected-1] += p.weights[i];
+    }
+    i++;
+  }
+}
