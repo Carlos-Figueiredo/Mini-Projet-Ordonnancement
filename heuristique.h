@@ -10,6 +10,11 @@ struct Problem {
   int size;
 };
 
+
+/********
+ * TOOLS
+ * ******/
+
 void print_array(int* arr, int size) {
   int* it = arr;
   printf("{%d", *(it++));
@@ -59,12 +64,81 @@ int in_time(struct Problem p, int task, int place) {
   return (p.starts[task-1]+ct <= p.dates[task-1]);
 }
 
+void t_max(struct Problem p, int* times) {
+  int* w_it = p.weights;
+  for (int* it=p.schedule; it!=p.schedule+p.size; ++it) {
+    times[*it-1] += *w_it;
+    //printf("%d ", *it-1);
+    //printf("%d ", times[*it-1]);
+    w_it++;
+  }
+  int* pi = p.starts;
+  for (int i=0; i<6; i++) {
+    //printf("%d ", times[i]);
+    //printf("%d ", *pi);
+    times[i] += *pi;
+    pi++;
+  }
+  //printf("%d ", times[6]);
+}
+
+void display_solution(struct Problem p) {
+  printf("Schedule: ");
+  print_array(p.schedule, p.size);
+  printf("\n\n\tM1: ");
+  for (int i=0; i<p.size; ++i) {
+    if (p.schedule[i] == 1) {
+      printf("%d ", i+1);
+    }
+  }
+  printf("|||");
+  for (int i=0; i<p.size; ++i) {
+    if (p.schedule[i] == 4) {
+      printf("%d ", i+1);
+    }
+  }
+  printf("\n\tM2: ");
+  for (int i=0; i<p.size; ++i) {
+    if (p.schedule[i] == 2) {
+      printf("%d ", i+1);
+    }
+  }
+  printf("|||");
+  for (int i=0; i<p.size; ++i) {
+    if (p.schedule[i] == 5) {
+      printf("%d ", i+1);
+    }
+  }
+  printf("\n\tM3: ");
+  for (int i=0; i<p.size; ++i) {
+    if (p.schedule[i] == 3) {
+      printf("%d ", i+1);
+    }
+  }
+  printf("|||");
+  for (int i=0; i<p.size; ++i) {
+    if (p.schedule[i] == 6) {
+      printf("%d ", i+1);
+    }
+  }
+  printf("\n\n");
+  printf("Non ordonnancé: ");
+  for (int i=0; i<p.size; ++i) {
+    if (p.schedule[i] == 7) {
+      printf("%d ", i+1);
+    }
+  }
+  printf("\n");
+  printf(" -> performance: %d\n", performance(p.schedule, p.size));
+}
+
+
+/***************
+ * HEURISTIQUES
+ * *************/
+
 /**
  * Positionnement des taches par ordre croissant des di
- * TODO: vérifier que la tache peut passer
- * TODO: vérifier que la tache ne finit pas en retard
- * TODO: tester les emplacement 4, 5, 6 et y mettre les taches si elles ne sont pas en retard
- * TODO: vérifier qu'une tache n'est pas en retard sinon la mettre en 7
  */
 void heuristique1(struct Problem p) {
   int* sch_it = p.schedule;
@@ -104,25 +178,6 @@ void heuristique1(struct Problem p) {
     }
   }
 }
-
-void t_max(struct Problem p, int* times) {
-  int* w_it = p.weights;
-  for (int* it=p.schedule; it!=p.schedule+p.size; ++it) {
-    times[*it-1] += *w_it;
-    //printf("%d ", *it-1);
-    //printf("%d ", times[*it-1]);
-    w_it++;
-  }
-  int* pi = p.starts;
-  for (int i=0; i<6; i++) {
-    //printf("%d ", times[i]);
-    //printf("%d ", *pi);
-    times[i] += *pi;
-    pi++;
-  }
-  //printf("%d ", times[6]);
-}
-
 
 /* placer les tâches à t le plus grand
 sur les machines possibles
@@ -228,53 +283,3 @@ void heuristique3(struct Problem p) {
   }
 }
 
-
-void display_solution(struct Problem p) {
-  printf("Schedule: ");
-  print_array(p.schedule, p.size);
-  printf("\n\n\tM1: ");
-  for (int i=0; i<p.size; ++i) {
-    if (p.schedule[i] == 1) {
-      printf("%d ", i+1);
-    }
-  }
-  printf("|||");
-  for (int i=0; i<p.size; ++i) {
-    if (p.schedule[i] == 4) {
-      printf("%d ", i+1);
-    }
-  }
-  printf("\n\tM2: ");
-  for (int i=0; i<p.size; ++i) {
-    if (p.schedule[i] == 2) {
-      printf("%d ", i+1);
-    }
-  }
-  printf("|||");
-  for (int i=0; i<p.size; ++i) {
-    if (p.schedule[i] == 5) {
-      printf("%d ", i+1);
-    }
-  }
-  printf("\n\tM3: ");
-  for (int i=0; i<p.size; ++i) {
-    if (p.schedule[i] == 3) {
-      printf("%d ", i+1);
-    }
-  }
-  printf("|||");
-  for (int i=0; i<p.size; ++i) {
-    if (p.schedule[i] == 6) {
-      printf("%d ", i+1);
-    }
-  }
-  printf("\n\n");
-  printf("Non ordonnancé: ");
-  for (int i=0; i<p.size; ++i) {
-    if (p.schedule[i] == 7) {
-      printf("%d ", i+1);
-    }
-  }
-  printf("\n");
-  printf(" -> performance: %d\n", performance(p.schedule, p.size));
-}
