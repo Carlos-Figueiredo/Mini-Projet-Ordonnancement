@@ -10,6 +10,8 @@ int main(int argc, char** argv) {
   int starts[6] = {0, 0, 0, 5, 5, 6};
   int schedule[SIZE] = {7,7,7,7,7};
 
+  int schedule_raw[SIZE] = {7,7,7,7,7};
+
   struct Problem p;
 
   p.weights = weights;
@@ -25,11 +27,12 @@ int main(int argc, char** argv) {
   display_solution(p);
 
 	printf("\n\nHeuristique 2\n\n");
-  p.schedule = schedule;
+  reset(&p, &schedule_raw[0]);
 	heuristique2(p);
 	display_solution(p);
 
 	printf("\n\nHeuristique 3\n\n");
+  reset(&p, &schedule_raw[0]);
   p.schedule = schedule;
   heuristique3(p);
   display_solution(p);

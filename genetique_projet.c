@@ -3,10 +3,15 @@
 int main(){
   int placements[7][NUMBEROFTASKS] = {{0, 0, 0, 0, 0}, {0, 1, 0, 0, 0}, {0, 0, 1, 0, 0},
                                     {0, 0, 0, 0, 0}, {0, 0, 0, 1, 0}, {0, 0, 0, 0, 0}, {1, 0, 0, 0, 1}};
-  int limitDate[NUMBEROFTASKS] = {2, 3, 4, 7, 8};
+  /*int limitDate[NUMBEROFTASKS] = {2, 3, 4, 7, 8};
   int indisponibleStart[6] = {4, 3, 5, 0, 0, 0};
   int indisponibleFinish[6] = {0, 0, 0, 5, 5, 6};
   int durations[NUMBEROFTASKS] = {1, 2, 1, 1, 2};
+	int number_of_tasks = 5;*/
+	int limitDate[NUMBEROFTASKS] = {2, 3, 4, 4, 5};
+  int indisponibleStart[6] = {4, 3, 5, 0, 0, 0};
+  int indisponibleFinish[6] = {0, 0, 0, 5, 5, 6};
+  int durations[NUMBEROFTASKS] = {1, 2, 3, 2, 3};
 	int number_of_tasks = 5;
 
 	struct Problem p;
@@ -76,6 +81,12 @@ int main(){
     }
   }
 
+	for (int j = 0; j < 7; j++) {
+		for (int i = 0; i < new_solutions[0]->number_of_tasks; i++) {
+			printf("%d ", *(new_solutions[0]->placements + j*new_solutions[0]->number_of_tasks + i));
+		}
+		printf("\n");
+	}
   /*
 
 	add_random_solutions(old_solutions, 0);

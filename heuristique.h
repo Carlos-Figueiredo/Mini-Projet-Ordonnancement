@@ -15,6 +15,12 @@ struct Problem {
  * TOOLS
  * ******/
 
+void reset(struct Problem* p, int* arr) {
+	for (int i = 0; i< p->size; i++) {
+		*(p->schedule + i) = *(arr + i);
+	}
+}
+
 void print_array(int* arr, int size) {
   int* it = arr;
   printf("{%d", *(it++));
